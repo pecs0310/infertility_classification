@@ -326,9 +326,9 @@ ensemble_score = roc_auc_score(y, ensemble_oof)
 print(f"LightGBM Weight: {w_lgb:.2f} | XGBoost Weight: {w_xgb:.2f} | CatBoost Weight: {w_cat:.2f}")
 print(f"Ensemble OOF ROC-AUC Score: {ensemble_score:.5f}")
 
-# 11. 최종 제출 파일 저장
+# 11. 최종 제출 파일 저장 (probability B열 지정 및 확률값 그대로 제출)
 final_test_preds = (w_lgb * lgb_test) + (w_xgb * xgb_test) + (w_cat * cat_test)
-submission['임신 성공 여부'] = final_test_preds
+submission['probability'] = final_test_preds
 
 output_sub_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "submission_v6_advanced.csv")
 submission.to_csv(output_sub_path, index=False)
